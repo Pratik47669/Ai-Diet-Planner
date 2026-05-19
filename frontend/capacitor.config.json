@@ -1,0 +1,9 @@
+{
+  "appId": "com.nutriplan.ai.app",
+  "appName": "NutriPlan",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "cleartext": true
+  }
+}

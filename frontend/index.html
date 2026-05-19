@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>NutriPlan AI - AI Based Personalized Diet Planner</title>
+    
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="AI-powered personalized diet planner that creates custom 7-day meal plans based on your health profile, goals, and preferences." />
+    <meta name="keywords" content="diet planner, AI diet, nutrition, meal plan, weight loss, muscle gain, BMI calculator, healthy eating" />
+    <meta name="author" content="NutriPlan AI" />
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="NutriPlan AI - Personalized Diet Planner" />
+    <meta property="og:description" content="Get AI-powered personalized diet plans tailored to your health goals" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:url" content="https://nutriplan.ai" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NutriPlan AI" />
+    <meta name="twitter:description" content="AI-powered personalized diet planner" />
+    <meta name="twitter:image" content="/twitter-image.png" />
+    
+    <!-- PWA / Mobile App Meta Tags -->
+    <meta name="application-name" content="NutriPlan AI" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="NutriPlan AI" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#22c55e" />
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#22c55e" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Preload Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Theme Script (prevents flash) -->
+    <script>
+        (function() {
+            try {
+                const theme = localStorage.getItem('nutriplan-theme') || 'system';
+                const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const isDark = theme === 'dark' || (theme === 'system' && systemDark);
+                
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (e) {
+                console.error('Theme initialization error:', e);
+            }
+        })();
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <!-- Scripts -->
+    <script type="module" src="/src/main.jsx"></script>
+    
+</body>
+</html>

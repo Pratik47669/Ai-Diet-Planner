@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.nutriplan.ai" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>NutriPlan AI</name>
+    <description>AI Based Personalized Diet Planner</description>
+    <author email="support@nutriplan.com" href="https://nutriplan.com">NutriPlan Team</author>
+    
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    
+    <!-- PWA Support -->
+    <preference name="loadUrlTimeoutValue" value="700000" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+    <preference name="Orientation" value="default" />
+    <preference name="Fullscreen" value="false" />
+    
+    <platform name="android">
+        <allow-intent href="market:*" />
+        
+        <!-- Permissions -->
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
+        
+        <!-- Splash Screen -->
+        <preference name="SplashScreen" value="screen" />
+        <preference name="SplashScreenDelay" value="3000" />
+        <preference name="AutoHideSplashScreen" value="true" />
+        <preference name="FadeSplashScreen" value="true" />
+        <preference name="FadeSplashScreenDuration" value="500" />
+        <preference name="ShowSplashScreenSpinner" value="false" />
+        
+        <!-- Icons -->
+        <icon src="res/icons/icon-36.png" density="ldpi" />
+        <icon src="res/icons/icon-48.png" density="mdpi" />
+        <icon src="res/icons/icon-72.png" density="hdpi" />
+        <icon src="res/icons/icon-96.png" density="xhdpi" />
+        <icon src="res/icons/icon-144.png" density="xxhdpi" />
+        <icon src="res/icons/icon-192.png" density="xxxhdpi" />
+        
+        <!-- Splash screens -->
+        <splash src="res/splash/splash-port.png" density="portrait" />
+        <splash src="res/splash/splash-land.png" density="land-hdpi" />
+    </platform>
+    
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+        <preference name="TargetDevice" value="handset" />
+        <preference name="Suppresses3DTouchIcon" value="false" />
+    </platform>
+    
+    <!-- Plugins -->
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="NetworkStatus">
+        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+    </feature>
+</widget>
