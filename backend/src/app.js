@@ -23,32 +23,33 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 
-CORS configuration
+// CORS configuration
 const allowedOrigins = [
   'https://ai-diet-planner-kohl.vercel.app',
-  'http://localhost:5173',
-  'http://localhost:5174',
-  'http://127.0.0.1:5173'
+  'http://localhost:5173'
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
 
-    if (allowedOrigins.includes(origin)) {
+    if (
+      allowedOrigins.includes(origin) ||
+      origin.endsWith('.vercel.app') // ⚡ important fix for preview URLs
+    ) {
       return callback(null, true);
-    } else {
-      console.log("❌ Blocked CORS:", origin);
-      return callback(null, true); // ⚠️ important: false mat karo, break ho jata hai frontend
     }
+
+    console.log("❌ Blocked CORS:", origin);
+    return callback(null, false);
   },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// ✅ IMPORTANT: preflight fix
 app.options("*", cors());
+
 // const allowedOrigins = [
 //   process.env.FRONTEND_URL || 'http://localhost:5173',
 //   'http://localhost:5174',
