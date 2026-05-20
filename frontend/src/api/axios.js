@@ -82,4 +82,8 @@ api.interceptors.response.use(
 //     }
 //     return Promise.reject(error);
 //   }
+<<<<<<< HEAD
 // );
+=======
+// );
+>>>>>>> 586b0f4 (frontend api fixed)
