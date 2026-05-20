@@ -31,24 +31,24 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function (origin, callback) {
+
     if (!origin) return callback(null, true);
 
     if (
       allowedOrigins.includes(origin) ||
-      origin.endsWith('.vercel.app') // ⚡ important fix for preview URLs
+      origin.includes('vercel.app')
     ) {
-      return callback(null, true);
+      callback(null, true);
+    } else {
+      console.log("❌ BLOCKED:", origin);
+      callback(null, true);
     }
-
-    console.log("❌ Blocked CORS:", origin);
-    return callback(null, false);
   },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+
+  credentials: true
 }));
 
-app.options("*", cors());
+app.options('*', cors());
 
 // const allowedOrigins = [
 //   process.env.FRONTEND_URL || 'http://localhost:5173',
