@@ -72,16 +72,24 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    
+
+    console.log("📩 Email:", email);
+    console.log("🔑 Password:", password);
+
     // Check if user exists
     const user = await User.findOne({ email }).select('+password');
+
+    console.log("👤 User Found:", user);
+
     if (!user) {
       return res.status(401).json({
         success: false,
         message: 'Invalid credentials'
       });
     }
-    
+
+    console.log("🧠 Stored Hash:", user.password);
+
     // Check if account is active
     if (!user.isActive) {
       return res.status(401).json({
@@ -89,7 +97,7 @@ export const login = async (req, res) => {
         message: 'Account has been deactivated'
       });
     }
-    
+
     // Check if email is verified
     if (!user.isEmailVerified) {
       return res.status(401).json({
@@ -97,23 +105,26 @@ export const login = async (req, res) => {
         message: 'Email not verified. Please check your inbox for the OTP.'
       });
     }
-    
+
     // Check password
     const isPasswordValid = await user.comparePassword(password);
+
+    console.log("✅ Password Match:", isPasswordValid);
+
     if (!isPasswordValid) {
       return res.status(401).json({
         success: false,
         message: 'Invalid credentials'
       });
     }
-    
+
     // Generate token
     const token = generateToken(user._id);
-    
+
     // Update last login
     user.lastLogin = Date.now();
     await user.save();
-    
+
     res.json({
       success: true,
       token,
@@ -123,15 +134,83 @@ export const login = async (req, res) => {
         role: user.role
       }
     });
+
   } catch (error) {
     logger.error('Login error:', error);
+
     res.status(500).json({
       success: false,
       message: 'Error logging in',
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+      error: process.env.NODE_ENV === 'development'
+        ? error.message
+        : undefined
     });
   }
 };
+
+// export const login = async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+    
+//     // Check if user exists
+//     const user = await User.findOne({ email }).select('+password');
+//     if (!user) {
+//       return res.status(401).json({
+//         success: false,
+//         message: 'Invalid credentials'
+//       });
+//     }
+    
+//     // Check if account is active
+//     if (!user.isActive) {
+//       return res.status(401).json({
+//         success: false,
+//         message: 'Account has been deactivated'
+//       });
+//     }
+    
+//     // Check if email is verified
+//     if (!user.isEmailVerified) {
+//       return res.status(401).json({
+//         success: false,
+//         message: 'Email not verified. Please check your inbox for the OTP.'
+//       });
+//     }
+    
+//     // Check password
+//     const isPasswordValid = await user.comparePassword(password);
+//     if (!isPasswordValid) {
+//       return res.status(401).json({
+//         success: false,
+//         message: 'Invalid credentials'
+//       });
+//     }
+    
+//     // Generate token
+//     const token = generateToken(user._id);
+    
+//     // Update last login
+//     user.lastLogin = Date.now();
+//     await user.save();
+    
+//     res.json({
+//       success: true,
+//       token,
+//       user: {
+//         id: user._id,
+//         email: user.email,
+//         role: user.role
+//       }
+//     });
+//   } catch (error) {
+//     logger.error('Login error:', error);
+//     res.status(500).json({
+//       success: false,
+//       message: 'Error logging in',
+//       error: process.env.NODE_ENV === 'development' ? error.message : undefined
+//     });
+//   }  
+// };
 
 export const logout = async (req, res) => {
   try {
