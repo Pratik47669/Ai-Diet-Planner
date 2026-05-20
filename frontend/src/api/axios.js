@@ -1,19 +1,12 @@
 import axios from 'axios';
 
-const baseURL =
-  import.meta.env.VITE_API_URL ||
-  'http://localhost:5000/api';
-
-console.log("🌍 API URL:", baseURL);
-
 export const api = axios.create({
-  baseURL,
+  baseURL: 'https://ai-diet-planner-backend-production-ee54.up.railway.app/api',
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Request interceptor
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -22,25 +15,18 @@ api.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    console.log("🚀 REQUEST:", config.baseURL + config.url);
-
     return config;
   },
   (error) => Promise.reject(error)
 );
 
-// Response interceptor
 api.interceptors.response.use(
-  (response) => {
-    console.log("✅ RESPONSE:", response.data);
-    return response;
-  },
+  (response) => response,
   (error) => {
-    console.log("❌ API ERROR:", error);
+    console.log("API ERROR:", error.response?.data || error.message);
 
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
-      window.location.href = '/login';
     }
 
     return Promise.reject(error);
@@ -82,8 +68,4 @@ api.interceptors.response.use(
 //     }
 //     return Promise.reject(error);
 //   }
-<<<<<<< HEAD
 // );
-=======
-// );
->>>>>>> 586b0f4 (frontend api fixed)

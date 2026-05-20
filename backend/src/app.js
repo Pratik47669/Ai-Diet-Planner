@@ -49,10 +49,7 @@ app.use(cors({
 
 app.options('*', cors());
 
-<<<<<<< HEAD
-=======
 // CORS configuration
->>>>>>> 586b0f4 (frontend api fixed)
 // const allowedOrigins = [
 //   process.env.FRONTEND_URL || 'http://localhost:5173',
 //   'http://localhost:5174',
