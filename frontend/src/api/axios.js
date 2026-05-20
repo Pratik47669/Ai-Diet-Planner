@@ -1,10 +1,7 @@
 import axios from 'axios';
 
 const baseURL =
-  import.meta.env.VITE_API_URL ||
-  'http://localhost:5000/api';
-
-console.log("🌍 API URL:", baseURL);
+  "https://ai-diet-planner-backend-production-ee54.up.railway.app/api";
 
 export const api = axios.create({
   baseURL,
@@ -13,7 +10,6 @@ export const api = axios.create({
   },
 });
 
-// Request interceptor
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -29,18 +25,16 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor
 api.interceptors.response.use(
   (response) => {
     console.log("✅ RESPONSE:", response.data);
     return response;
   },
   (error) => {
-    console.log("❌ API ERROR:", error);
+    console.log("❌ API ERROR:", error.response?.data || error);
 
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
-      window.location.href = '/login';
     }
 
     return Promise.reject(error);
