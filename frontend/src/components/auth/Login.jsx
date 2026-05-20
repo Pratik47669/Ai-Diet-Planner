@@ -198,6 +198,27 @@ const Login = () => {
 
                         {/* Submit Button */}
                         <button
+    type="button"
+    onClick={() => {
+        console.log("🔥 BUTTON CLICK WORKING");
+
+        login(formData.email, formData.password)
+            .then((res) => {
+                console.log("✅ LOGIN RESPONSE:", res);
+
+                if (res.success) {
+                    navigate('/dashboard');
+                }
+            })
+            .catch((err) => {
+                console.log("❌ LOGIN ERROR:", err);
+            });
+    }}
+    className="w-full py-3 px-4 bg-red-600 text-white rounded-xl"
+>
+    TEST LOGIN
+</button>
+                        {/* <button
                             type="submit"
                             disabled={loading}
                             className="w-full py-3 px-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
@@ -213,7 +234,7 @@ const Login = () => {
                                     Sign In
                                 </>
                             )}
-                        </button>
+                        </button> */}
                     </form>
 
                     {/* Divider */}
