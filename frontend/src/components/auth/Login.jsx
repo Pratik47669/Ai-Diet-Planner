@@ -48,22 +48,61 @@ const Login = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        
-        const newErrors = validateForm();
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
-            return;
-        }
-        
+    e.preventDefault();
+
+    console.log("🔥 LOGIN BUTTON CLICKED");
+
+    const newErrors = validateForm();
+
+    if (Object.keys(newErrors).length > 0) {
+        console.log("❌ Validation Errors:", newErrors);
+        setErrors(newErrors);
+        return;
+    }
+
+    try {
         setLoading(true);
-        const result = await login(formData.email, formData.password);
-        setLoading(false);
-        
+
+        console.log("📤 Sending login request...");
+
+        const result = await login(
+            formData.email,
+            formData.password
+        );
+
+        console.log("✅ Login Result:", result);
+
         if (result.success) {
+            console.log("🚀 Navigating to dashboard");
             navigate('/dashboard');
+        } else {
+            console.log("❌ Login failed");
         }
-    };
+
+    } catch (err) {
+        console.error("💥 LOGIN ERROR:", err);
+    } finally {
+        setLoading(false);
+    }
+};
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+        
+    //     const newErrors = validateForm();
+    //     if (Object.keys(newErrors).length > 0) {
+    //         setErrors(newErrors);
+    //         return;
+    //     }
+        
+    //     setLoading(true);
+    //     const result = await login(formData.email, formData.password);
+    //     setLoading(false);
+        
+    //     if (result.success) {
+    //         navigate('/dashboard');
+    //     }
+    // };
 
     return (
         <div className="min-h-[80vh] flex items-center justify-center py-12 px-4">
